@@ -72,9 +72,3 @@ registerForm.addEventListener("submit", async (e) => {
   }
 });
 
-// Dacă utilizatorul e deja autentificat, îl trimitem direct în joc.
-// watchAuthState((user) => {
-//   if (user) {
-//     window.location.href = "game.html";
-//   }
-// });
