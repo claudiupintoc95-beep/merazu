@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merazu Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg class="wave-divider" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0,14 C50,28 100,0 150,14 C200,28 250,0 300,14 C350,28 400,0 400,14 L400,0 L0,0 Z" fill="#61633D" opacity="0.07"></path>
+</svg>
+
+<div class="app-shell">
+
+  <div class="top-brand">
+    <div class="mark"><img src="logo.png" alt="" /></div>
+    <div class="name">Merazu Game</div>
+  </div>
+
+  <div class="page-content" style="display:flex; align-items:center; justify-content:center;">
+    <div class="card" style="width:100%;">
+
+      <div id="alert-box"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form">
+        <p class="eyebrow">Bun venit înapoi</p>
+        <h1 style="font-size:24px; margin-bottom:4px;">Autentificare</h1>
+        <p class="subtitle" style="margin-bottom:22px;">Joacă provocarea zilei și urmărește-ți punctele.</p>
+
+        <div class="field">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" required autocomplete="email">
+        </div>
+        <div class="field" style="margin-bottom:24px;">
+          <label for="login-password">Parolă</label>
+          <input type="password" id="login-password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="login-btn">Autentificare</button>
+
+        <div class="switch-row">
+          Nu ai cont încă? <button type="button" id="show-register">Creează cont</button>
+        </div>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="register-form" style="display:none;">
+        <p class="eyebrow">Alătură-te jocului</p>
+        <h1 style="font-size:24px; margin-bottom:4px;">Creează cont</h1>
+        <p class="subtitle" style="margin-bottom:22px;">Gratuit, fără nicio obligație de achiziție.</p>
+
+        <div class="field">
+          <label for="reg-name">Nume</label>
+          <input type="text" id="reg-name" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" required autocomplete="email">
+        </div>
+        <div class="field" style="margin-bottom:20px;">
+          <label for="reg-password">Parolă</label>
+          <input type="password" id="reg-password" required minlength="6" autocomplete="new-password">
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="reg-age" required>
+          <label for="reg-age">Confirm că am cel puțin 16 ani împliniți și am citit <a href="regulament.html" target="_blank">Regulamentul oficial</a> al campaniei.</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="register-btn">Creează cont</button>
+
+        <div class="switch-row">
+          Ai deja cont? <button type="button" id="show-login">Autentificare</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="auth-page.js"></script>
+</body>
+</html>

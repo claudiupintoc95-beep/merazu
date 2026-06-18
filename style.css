@@ -1,0 +1,276 @@
+/* css/style.css — Merazu Game, identitate vizuală mediteraneană minimalistă */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --color-bg: #F3EDE4;
+  --color-bg-card: #FFFFFF;
+  --color-ink: #3A3526;
+  --color-ink-soft: #7A7460;
+  --color-deep: #61633D;
+  --color-deep-light: #767948;
+  --color-sand: #BAAD87;
+  --color-sand-light: #EDE7D8;
+  --color-coral: #A35938;
+  --color-coral-light: #BD7456;
+  --color-success: #3B6D11;
+  --color-danger: #A32D2D;
+  --border: 1px solid rgba(58, 53, 38, 0.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow-soft: 0 1px 2px rgba(58,53,38,0.05), 0 8px 24px rgba(58,53,38,0.07);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  line-height: 1.6;
+}
+
+h1, h2, h3, .display {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.wave-divider {
+  display: block;
+  width: 100%;
+  height: 28px;
+}
+
+.app-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.app-shell.wide {
+  max-width: 720px;
+}
+
+.top-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 32px 0 8px;
+}
+
+.top-brand .mark {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-brand .mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.top-brand .name {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  color: var(--color-deep);
+}
+
+.card {
+  background: var(--color-bg-card);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 28px 24px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  color: var(--color-ink-soft);
+  margin-bottom: 6px;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(43,40,37,0.15);
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  transition: border-color 0.15s ease;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--color-deep);
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.checkbox-row input {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-deep);
+}
+
+.checkbox-row label {
+  font-size: 13px;
+  color: var(--color-ink-soft);
+  line-height: 1.5;
+}
+
+.checkbox-row a {
+  color: var(--color-deep);
+  text-decoration: underline;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+  text-align: center;
+}
+
+.btn:active { transform: scale(0.99); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--color-deep);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) { background: var(--color-deep-light); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1.5px solid rgba(43,40,37,0.15);
+  color: var(--color-ink);
+}
+.btn-ghost:hover:not(:disabled) { background: var(--color-sand-light); }
+
+.switch-row {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--color-ink-soft);
+}
+
+.switch-row button {
+  background: none;
+  border: none;
+  color: var(--color-deep);
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.alert {
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.alert-error {
+  background: #FBEAEA;
+  color: var(--color-danger);
+}
+
+.alert-success {
+  background: #EAF3DE;
+  color: var(--color-success);
+}
+
+.eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-soft);
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: var(--color-ink-soft);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* Bottom nav for app pages */
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  background: var(--color-bg-card);
+  border-top: var(--border);
+  padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+  margin-top: auto;
+}
+
+.bottom-nav a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-decoration: none;
+  color: var(--color-ink-soft);
+  font-size: 11px;
+  padding: 6px 0;
+  border-radius: var(--radius-sm);
+}
+
+.bottom-nav a.active {
+  color: var(--color-deep);
+}
+
+.bottom-nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+.page-content {
+  flex: 1;
+  padding: 20px 0 24px;
+}
+
+.loading-spin {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
