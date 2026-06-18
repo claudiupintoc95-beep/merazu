@@ -1,5 +1,7 @@
 // app.js
 import { registerUser, loginUser, mapAuthError } from "./auth.js";
+import { auth } from "./firebase-config.js";
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
@@ -69,5 +71,19 @@ registerForm.addEventListener("submit", async (e) => {
   } catch (err) {
     showAlert(mapAuthError(err));
     setLoading(btn, false, "Creează cont");
+  }
+});
+
+document.getElementById("forgot-btn").addEventListener("click", async () => {
+  const email = document.getElementById("login-email").value.trim();
+  if (!email) {
+    showAlert("Introdu emailul tău mai întâi, apoi apasă 'Ai uitat parola?'");
+    return;
+  }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showAlert("Email de resetare trimis! Verifică inbox-ul.", "success");
+  } catch (err) {
+    showAlert("Eroare: " + err.message);
   }
 });
