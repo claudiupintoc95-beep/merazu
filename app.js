@@ -1,4 +1,3 @@
-// app.js
 import { registerUser, loginUser, mapAuthError } from "./auth.js";
 import { auth } from "./firebase-config.js";
 import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -60,29 +59,29 @@ registerForm.addEventListener("submit", async (e) => {
   const btn = document.getElementById("register-btn");
 
   if (!ageConfirmed) {
-    showAlert("Trebuie să confirmi vârsta minimă și să accepți Regulamentul pentru a continua.");
+    showAlert("Trebuie sa confirmi varsta minima si sa accepti Regulamentul pentru a continua.");
     return;
   }
 
-  setLoading(btn, true, "Creează cont");
+  setLoading(btn, true, "Creeaza cont");
   try {
     await registerUser(email, password, name, ageConfirmed);
     window.location.href = "game.html";
   } catch (err) {
     showAlert(mapAuthError(err));
-    setLoading(btn, false, "Creează cont");
+    setLoading(btn, false, "Creeaza cont");
   }
 });
 
 document.getElementById("forgot-btn").addEventListener("click", async () => {
   const email = document.getElementById("login-email").value.trim();
   if (!email) {
-    showAlert("Introdu emailul tău mai întâi, apoi apasă 'Ai uitat parola?'");
+    showAlert("Introdu emailul tau mai intai, apoi apasa Ai uitat parola?");
     return;
   }
   try {
     await sendPasswordResetEmail(auth, email);
-    showAlert("Email de resetare trimis! Verifică inbox-ul.", "success");
+    showAlert("Email de resetare trimis! Verifica inbox-ul.", "success");
   } catch (err) {
     showAlert("Eroare: " + err.message);
   }
