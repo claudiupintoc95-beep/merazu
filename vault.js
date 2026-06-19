@@ -52,16 +52,19 @@ async function openVault(user, userData) {
   btn.style.opacity = "0.6";
   status.textContent = "Se deschide...";
 
-  const shakeFrames = [0, -3, 3, -2, 2, 0];
+  lid.style.transition = "transform 0.15s ease";
+
+  const shakeFrames = [0, -4, 4, -3, 3, -2, 2, 0];
   let shakeStep = 0;
   const shakeTimer = setInterval(() => {
     const deg = shakeFrames[shakeStep % shakeFrames.length];
-    lid.style.transform = `rotate(${deg}deg) translateY(0px)`;
+    lid.style.transform = `rotate(${deg}deg)`;
     shakeStep++;
-  }, 180);
+  }, 150);
 
   setTimeout(async () => {
     clearInterval(shakeTimer);
+    lid.style.transition = "transform 1.1s cubic-bezier(.4,0,.2,1), opacity 0.6s ease";
     lid.style.transform = "rotate(-95deg) translateY(-40px) translateX(-60px)";
     lid.style.opacity = "0";
 
@@ -110,21 +113,13 @@ onAuthStateChanged(auth, async (user) => {
   const userRef = doc(db, "users", user.uid);
   const snap = await getDoc(userRef);
 
-  const debugBox = document.createElement("div");
-  debugBox.style.cssText = "background:#FAEEDA; color:#854F0B; padding:10px; margin:10px 0; border-radius:8px; font-size:11px; font-family:monospace; word-break:break-all;";
-
   if (!snap.exists()) {
-    debugBox.textContent = "DEBUG: documentul nu exista";
-    document.querySelector(".page-content").prepend(debugBox);
     showState("not-eligible-state");
     return;
   }
 
   const data = snap.data();
   const todayId = getTodayId();
-
-  debugBox.textContent = "DEBUG: daysPlayed = " + JSON.stringify(data.daysPlayed) + " | uid citit = " + user.uid;
-  document.querySelector(".page-content").prepend(debugBox);
 
   if (data.vaultHistory && data.vaultHistory[todayId]) {
     const claimed = data.vaultHistory[todayId];
