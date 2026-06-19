@@ -6,82 +6,16 @@
 <title>Magazin — Merazu Game</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.shop-scene {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -1;
-  overflow: hidden;
-  background:
-    repeating-linear-gradient(0deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 2px, transparent 2px, transparent 42px),
-    linear-gradient(180deg, #6B4226 0%, #5A3A22 45%, #4A2F1C 100%);
+body {
+  background: var(--color-sand-light);
 }
-
-.shop-scene::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 90px);
-}
-
-.shop-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.55;
-  animation: shopglow ease-in-out infinite;
-}
-
-@keyframes shopglow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.65; }
-}
-
-.shop-vignette {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(30,18,10,0.55) 80%);
-}
-
-.app-shell { position: relative; z-index: 1; }
-
 .shop-header-wrap {
   text-align: center;
   margin-bottom: 16px;
 }
-.shop-header-wrap .eyebrow { color: #E8D4B8; }
-.shop-header-wrap h1 { color: #F3EDE4; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
-
-.top-brand .name {
-  color: #F3EDE4;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
-}
-
-.btn-icon { color: #E8D4B8; }
-
-.points-bar {
-  background: rgba(243,237,228,0.95);
-  color: var(--color-ink);
-}
-.points-label { color: var(--color-ink-soft); opacity: 1; }
-.points-value { color: var(--color-deep); }
-
-.card {
-  background: rgba(255,255,255,0.97);
-  box-shadow: 0 6px 24px rgba(0,0,0,0.25);
-}
-
-.bottom-nav {
-  background: rgba(243,237,228,0.97);
-}
-
-.wave-divider { display: none; }
 </style>
 </head>
 <body>
-
-<div class="shop-scene" id="shop-scene"></div>
-<div class="shop-vignette"></div>
 
 <div class="app-shell">
 
@@ -108,13 +42,13 @@
     </div>
 
     <div id="loading-state" style="text-align:center; padding:2rem 0;">
-      <div class="loading-spin" style="border-color:rgba(255,255,255,0.3); border-top-color:#F3EDE4; width:28px; height:28px; margin:0 auto;"></div>
+      <div class="loading-spin" style="border-color:rgba(97,99,61,0.3); border-top-color:var(--color-deep); width:28px; height:28px; margin:0 auto;"></div>
     </div>
 
     <div id="shop-grid" style="display:none; grid-template-columns:1fr 1fr; gap:10px;"></div>
 
-    <div id="redeem-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:50; align-items:center; justify-content:center;">
-      <div class="card" style="max-width:320px; width:90%; text-align:center; padding:28px 24px;">
+    <div id="redeem-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(43,40,37,0.5); z-index:50; align-items:center; justify-content:center;">
+      <div class="card" style="max-width:320px; width:90%; text-align:center;">
         <div style="font-size:32px; margin-bottom:0.5rem;">🎁</div>
         <h2 style="font-size:18px; margin-bottom:6px;" id="modal-title"></h2>
         <p class="subtitle" style="margin-bottom:16px;">Arată acest cod ospătarului la restaurant</p>
@@ -145,27 +79,6 @@
   </nav>
 
 </div>
-
-<script>
-const scene = document.getElementById('shop-scene');
-const glowSpots = [
-  { left: '15%', top: '10%', size: 200, color: '#F3C77A', delay: 0, dur: 4 },
-  { left: '75%', top: '20%', size: 240, color: '#E8A85C', delay: 1.2, dur: 5 },
-  { left: '40%', top: '60%', size: 180, color: '#F3C77A', delay: 0.6, dur: 4.5 },
-];
-glowSpots.forEach(g => {
-  const el = document.createElement('div');
-  el.className = 'shop-glow';
-  el.style.left = g.left;
-  el.style.top = g.top;
-  el.style.width = g.size + 'px';
-  el.style.height = g.size + 'px';
-  el.style.background = g.color;
-  el.style.animationDuration = g.dur + 's';
-  el.style.animationDelay = g.delay + 's';
-  scene.appendChild(el);
-});
-</script>
 
 <script type="module" src="shop.js"></script>
 </body>
