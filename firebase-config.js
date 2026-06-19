@@ -1,8 +1,3 @@
-// js/firebase-config.js
-// Configurația Firebase pentru proiectul "taste-of-merazu"
-// Acest fișier este sigur de inclus public — cheile Firebase de tip "web config"
-// nu sunt secrete; securitatea reală este asigurată de Firestore Security Rules.
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getAuth,
@@ -23,6 +18,7 @@ import {
   getDocs,
   serverTimestamp,
   increment,
+  runTransaction,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -57,4 +53,5 @@ export {
   getDocs,
   serverTimestamp,
   increment,
+  runTransaction,
 };
