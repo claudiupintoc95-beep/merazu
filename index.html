@@ -5,12 +5,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Merazu Game</title>
 <link rel="stylesheet" href="style.css">
+<style>
+.glow-scene {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(180deg, #2B2117 0%, #3A2A1C 50%, #2B2117 100%);
+}
+
+.glow-scene::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.5;
+}
+
+.bulb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #FFE9C2 0%, #F3C77A 35%, #B9803A 75%, transparent 100%);
+  filter: blur(0.5px);
+  animation: bulbpulse ease-in-out infinite;
+}
+
+.bulb::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 220%; height: 220%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(243,199,122,0.35) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.cord {
+  position: absolute;
+  width: 1px;
+  background: rgba(0,0,0,0.4);
+  top: 0;
+}
+
+@keyframes bulbpulse {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(1.2deg); }
+}
+
+.bulb-group {
+  position: absolute;
+  transform-origin: top center;
+  animation: sway ease-in-out infinite;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  background: rgba(243, 237, 228, 0.97);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+}
+
+.top-brand .name {
+  color: #F3EDE4;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.wave-divider { display: none; }
+</style>
 </head>
 <body>
 
-<svg class="wave-divider" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true">
-  <path d="M0,14 C50,28 100,0 150,14 C200,28 250,0 300,14 C350,28 400,0 400,14 L400,0 L0,0 Z" fill="#61633D" opacity="0.07"></path>
-</svg>
+<div class="glow-scene" id="glow-scene"></div>
 
 <div class="app-shell">
   <div class="top-brand">
@@ -67,10 +144,50 @@
       </form>
     </div>
   </div>
-  <p style="text-align:center; font-size:12px; color:var(--color-ink-soft); padding:16px 0 24px;">
-    <a href="regulament.html" target="_blank" style="color:var(--color-ink-soft); text-decoration:underline;">Regulamentul oficial al campaniei</a>
+  <p style="text-align:center; font-size:12px; color:#D9CDB8; padding:16px 0 24px;">
+    <a href="regulament.html" target="_blank" style="color:#D9CDB8; text-decoration:underline;">Regulamentul oficial al campaniei</a>
   </p>
 </div>
+
+<script>
+const scene = document.getElementById('glow-scene');
+const positions = [
+  { left: '8%', top: '6%', size: 26, delay: 0, sway: 6 },
+  { left: '18%', top: '14%', size: 18, delay: 0.6, sway: 5.5 },
+  { left: '82%', top: '8%', size: 30, delay: 1.1, sway: 6.5 },
+  { left: '90%', top: '20%', size: 16, delay: 1.8, sway: 5 },
+  { left: '48%', top: '4%', size: 14, delay: 2.3, sway: 7 },
+  { left: '30%', top: '24%', size: 12, delay: 0.3, sway: 6 },
+  { left: '68%', top: '22%', size: 20, delay: 1.5, sway: 5.8 },
+];
+
+positions.forEach((p) => {
+  const group = document.createElement('div');
+  group.className = 'bulb-group';
+  group.style.left = p.left;
+  group.style.top = '0';
+  group.style.animationDuration = p.sway + 's';
+  group.style.animationDelay = p.delay + 's';
+
+  const cord = document.createElement('div');
+  cord.className = 'cord';
+  cord.style.height = p.top;
+  cord.style.left = '0';
+  group.appendChild(cord);
+
+  const bulb = document.createElement('div');
+  bulb.className = 'bulb';
+  bulb.style.width = p.size + 'px';
+  bulb.style.height = p.size + 'px';
+  bulb.style.top = p.top;
+  bulb.style.left = (-p.size/2) + 'px';
+  bulb.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+  bulb.style.animationDelay = p.delay + 's';
+  group.appendChild(bulb);
+
+  scene.appendChild(group);
+});
+</script>
 
 <script type="module" src="app.js"></script>
 </body>
