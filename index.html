@@ -13,22 +13,17 @@
 </svg>
 
 <div class="app-shell">
-
   <div class="top-brand">
     <div class="mark"><img src="logo.png" alt="" /></div>
     <div class="name">Merazu Game</div>
   </div>
-
   <div class="page-content" style="display:flex; align-items:center; justify-content:center;">
     <div class="card" style="width:100%;">
-
       <div id="alert-box"></div>
-
       <form id="login-form">
         <p class="eyebrow">Bun venit inapoi</p>
         <h1 style="font-size:24px; margin-bottom:4px;">Autentificare</h1>
         <p class="subtitle" style="margin-bottom:22px;">Joaca provocarea zilei si urmareste-ti punctele.</p>
-
         <div class="field">
           <label for="login-email">Email</label>
           <input type="email" id="login-email" required autocomplete="email">
@@ -37,23 +32,18 @@
           <label for="login-password">Parola</label>
           <input type="password" id="login-password" required autocomplete="current-password">
         </div>
-
         <div style="text-align:right; margin-bottom:20px;">
           <button type="button" id="forgot-btn" style="background:none; border:none; color:var(--color-deep); font-size:13px; cursor:pointer; text-decoration:underline; padding:0;">Ai uitat parola?</button>
         </div>
-
         <button type="submit" class="btn btn-primary" id="login-btn">Autentificare</button>
-
         <div class="switch-row">
           Nu ai cont inca? <button type="button" id="show-register">Creeaza cont</button>
         </div>
       </form>
-
       <form id="register-form" style="display:none;">
         <p class="eyebrow">Alatura-te jocului</p>
         <h1 style="font-size:24px; margin-bottom:4px;">Creeaza cont</h1>
         <p class="subtitle" style="margin-bottom:22px;">Gratuit, fara nicio obligatie de achizitie.</p>
-
         <div class="field">
           <label for="reg-name">Nume</label>
           <input type="text" id="reg-name" required autocomplete="name">
@@ -66,22 +56,20 @@
           <label for="reg-password">Parola</label>
           <input type="password" id="reg-password" required minlength="6" autocomplete="new-password">
         </div>
-
         <div class="checkbox-row">
           <input type="checkbox" id="reg-age" required>
           <label for="reg-age">Confirm ca am cel putin 16 ani impliniti si am citit <a href="regulament.html" target="_blank">Regulamentul oficial</a> al campaniei.</label>
         </div>
-
         <button type="submit" class="btn btn-primary" id="register-btn">Creeaza cont</button>
-
         <div class="switch-row">
           Ai deja cont? <button type="button" id="show-login">Autentificare</button>
         </div>
       </form>
-
     </div>
   </div>
-
+  <p style="text-align:center; font-size:12px; color:var(--color-ink-soft); padding:16px 0 24px;">
+    <a href="regulament.html" target="_blank" style="color:var(--color-ink-soft); text-decoration:underline;">Regulamentul oficial al campaniei</a>
+  </p>
 </div>
 
 <script type="module" src="app.js"></script>
