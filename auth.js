@@ -1,6 +1,3 @@
-// js/auth.js
-// Gestionează înregistrarea, autentificarea și structura inițială a unui utilizator nou.
-
 import {
   auth,
   db,
@@ -12,15 +9,26 @@ import {
   setDoc,
   getDoc,
   serverTimestamp,
+  runTransaction,
 } from "./firebase-config.js";
 
-// Structura inițială a unui utilizator nou în Firestore.
-// totalWallet = Portofelul Total (permanent, conform Regulamentului art. 4.3)
-// weeklyScore = Scorul Săptămânal (resetat lunea, conform art. 4.3)
-function initialUserData(email, displayName, birthConfirmed16) {
+async function getNextMemberCode() {
+  const counterRef = doc(db, "counters", "members");
+  const nextNumber = await runTransaction(db, async (transaction) => {
+    const counterSnap = await transaction.get(counterRef);
+    const current = counterSnap.exists() ? counterSnap.data().count || 0 : 0;
+    const next = current + 1;
+    transaction.set(counterRef, { count: next });
+    return next;
+  });
+  return "MZ-" + String(nextNumber).padStart(4, "0");
+}
+
+function initialUserData(email, displayName, birthConfirmed16, memberCode) {
   return {
     email,
     displayName: displayName || email.split("@")[0],
+    memberCode: memberCode,
     createdAt: serverTimestamp(),
     birthConfirmed16: !!birthConfirmed16,
     totalWallet: 0,
@@ -36,12 +44,13 @@ function initialUserData(email, displayName, birthConfirmed16) {
 async function registerUser(email, password, displayName, ageConfirmed) {
   if (!ageConfirmed) {
     throw new Error(
-      "Trebuie să confirmi că ai cel puțin 16 ani împliniți pentru a te înscrie."
+      "Trebuie sa confirmi ca ai cel putin 16 ani impliniti pentru a te inscrie."
     );
   }
+  const memberCode = await getNextMemberCode();
   const credential = await createUserWithEmailAndPassword(auth, email, password);
   const uid = credential.user.uid;
-  await setDoc(doc(db, "users", uid), initialUserData(email, displayName, ageConfirmed));
+  await setDoc(doc(db, "users", uid), initialUserData(email, displayName, ageConfirmed, memberCode));
   return credential.user;
 }
 
@@ -66,15 +75,15 @@ function watchAuthState(callback) {
 function mapAuthError(error) {
   const code = error.code || "";
   const map = {
-    "auth/email-already-in-use": "Acest email este deja înregistrat. Încearcă să te autentifici.",
-    "auth/invalid-email": "Adresa de email nu este validă.",
-    "auth/weak-password": "Parola trebuie să aibă cel puțin 6 caractere.",
-    "auth/user-not-found": "Nu există niciun cont cu acest email.",
-    "auth/wrong-password": "Parola introdusă este incorectă.",
-    "auth/invalid-credential": "Email sau parolă incorectă.",
-    "auth/too-many-requests": "Prea multe încercări. Așteaptă puțin și reîncearcă.",
+    "auth/email-already-in-use": "Acest email este deja inregistrat. Incearca sa te autentifici.",
+    "auth/invalid-email": "Adresa de email nu este valida.",
+    "auth/weak-password": "Parola trebuie sa aiba cel putin 6 caractere.",
+    "auth/user-not-found": "Nu exista niciun cont cu acest email.",
+    "auth/wrong-password": "Parola introdusa este incorecta.",
+    "auth/invalid-credential": "Email sau parola incorecta.",
+    "auth/too-many-requests": "Prea multe incercari. Asteapta putin si reincearca.",
   };
-  return map[code] || error.message || "A apărut o eroare. Încearcă din nou.";
+  return map[code] || error.message || "A aparut o eroare. Incearca din nou.";
 }
 
 export { registerUser, loginUser, logoutUser, getUserProfile, watchAuthState, mapAuthError };
