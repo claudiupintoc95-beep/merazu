@@ -1,10 +1,9 @@
-// vault.js
 import {
   auth, db, onAuthStateChanged, signOut,
   doc, getDoc, updateDoc, increment, serverTimestamp
 } from "./firebase-config.js";
 
-const VAULT_DAY = 1; // Luni
+const VAULT_DAY = 1;
 
 const REWARDS = [
   { label: "Discount 5%", emoji: "🏷️", weight: 35, type: "discount", value: 5 },
@@ -29,25 +28,6 @@ function generateCode() {
   return "MZ-" + Math.random().toString(36).substring(2, 7).toUpperCase();
 }
 
-function getWeekId() {
-  const now = new Date();
-  const day = now.getDay();
-  const diff = (day === 0) ? -6 : (2 - day);
-  const tuesday = new Date(now);
-  tuesday.setDate(now.getDate() + diff);
-  return `${tuesday.getFullYear()}-${String(tuesday.getMonth()+1).padStart(2,'0')}-${String(tuesday.getDate()).padStart(2,'0')}`;
-}
-
-function getPreviousWeekId() {
-  const now = new Date();
-  const day = now.getDay();
-  // Luni: saptamana precedenta = marti-duminica de acum 1-7 zile
-  const diff = (day === 0) ? -6 : (2 - day);
-  const tuesday = new Date(now);
-  tuesday.setDate(now.getDate() + diff - 7);
-  return `${tuesday.getFullYear()}-${String(tuesday.getMonth()+1).padStart(2,'0')}-${String(tuesday.getDate()).padStart(2,'0')}`;
-}
-
 function getTodayId() {
   const now = new Date();
   return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
@@ -57,7 +37,7 @@ function showState(stateId) {
   const states = ["loading-state", "not-monday-state", "not-eligible-state", "already-opened-state", "vault-state"];
   states.forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.style.display = (id === stateId) ? (id === "vault-state" ? "block" : "block") : "none";
+    if (el) el.style.display = (id === stateId) ? "block" : "none";
   });
 }
 
@@ -92,7 +72,7 @@ async function openVault(user, userData) {
     setTimeout(() => {
       rewardWrap.style.opacity = "1";
       rewardWrap.style.transform = "translateY(0px) scale(1)";
-      status.innerHTML = `Ai câștigat: <strong>${reward.label}</strong><br><span style="font-family:monospace; font-size:13px; color:var(--color-coral);">${code}</span>`;
+      status.innerHTML = `Ai castigat: <strong>${reward.label}</strong><br><span style="font-family:monospace; font-size:13px; color:var(--color-coral);">${code}</span>`;
     }, 350);
 
     setTimeout(async () => {
@@ -127,13 +107,6 @@ onAuthStateChanged(auth, async (user) => {
     window.location.href = "index.html";
   });
 
-  const today = new Date().getDay();
-
-  if (today !== VAULT_DAY) {
-    showState("not-monday-state");
-    return;
-  }
-
   const userRef = doc(db, "users", user.uid);
   const snap = await getDoc(userRef);
 
@@ -148,15 +121,14 @@ onAuthStateChanged(auth, async (user) => {
   if (data.vaultHistory && data.vaultHistory[todayId]) {
     const claimed = data.vaultHistory[todayId];
     document.getElementById("already-reward-text").textContent =
-      `Ai câștigat: ${claimed.reward} (cod: ${claimed.code})`;
+      `Ai castigat: ${claimed.reward} (cod: ${claimed.code})`;
     showState("already-opened-state");
     return;
   }
 
-  const previousWeekId = getPreviousWeekId();
-  const wasActiveLastWeek = data.daysPlayed && Object.keys(data.daysPlayed).length > 0;
+  const wasActive = data.daysPlayed && Object.keys(data.daysPlayed).length > 0;
 
-  if (!wasActiveLastWeek) {
+  if (!wasActive) {
     showState("not-eligible-state");
     return;
   }
