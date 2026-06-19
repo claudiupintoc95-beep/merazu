@@ -110,13 +110,21 @@ onAuthStateChanged(auth, async (user) => {
   const userRef = doc(db, "users", user.uid);
   const snap = await getDoc(userRef);
 
+  const debugBox = document.createElement("div");
+  debugBox.style.cssText = "background:#FAEEDA; color:#854F0B; padding:10px; margin:10px 0; border-radius:8px; font-size:11px; font-family:monospace; word-break:break-all;";
+
   if (!snap.exists()) {
+    debugBox.textContent = "DEBUG: documentul nu exista";
+    document.querySelector(".page-content").prepend(debugBox);
     showState("not-eligible-state");
     return;
   }
 
   const data = snap.data();
   const todayId = getTodayId();
+
+  debugBox.textContent = "DEBUG: daysPlayed = " + JSON.stringify(data.daysPlayed) + " | uid citit = " + user.uid;
+  document.querySelector(".page-content").prepend(debugBox);
 
   if (data.vaultHistory && data.vaultHistory[todayId]) {
     const claimed = data.vaultHistory[todayId];
