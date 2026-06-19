@@ -225,7 +225,6 @@ h1, h2, h3, .display {
   margin-top: 6px;
 }
 
-/* Bottom nav for app pages */
 .bottom-nav {
   position: sticky;
   bottom: 0;
@@ -275,7 +274,6 @@ h1, h2, h3, .display {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* GAME PAGE */
 .game-header {
   display: flex;
   align-items: center;
@@ -358,7 +356,6 @@ h1, h2, h3, .display {
 .choice-btn:hover { border-color: var(--color-deep); background: var(--color-sand-light); }
 .choice-btn.selected { border-color: var(--color-coral); background: var(--color-coral); color: #fff; }
 
-/* LEADERBOARD */
 .rank-row {
   display: flex;
   align-items: center;
