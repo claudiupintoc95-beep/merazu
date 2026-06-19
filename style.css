@@ -274,6 +274,7 @@ h1, h2, h3, .display {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+
 /* GAME PAGE */
 .game-header {
   display: flex;
@@ -356,3 +357,58 @@ h1, h2, h3, .display {
 }
 .choice-btn:hover { border-color: var(--color-deep); background: var(--color-sand-light); }
 .choice-btn.selected { border-color: var(--color-coral); background: var(--color-coral); color: #fff; }
+
+/* LEADERBOARD */
+.rank-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-bg-card);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+
+.rank-row-self {
+  border: 1.5px solid var(--color-deep);
+  background: var(--color-sand-light);
+}
+
+.rank-number {
+  width: 24px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  flex-shrink: 0;
+}
+
+.rank-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-sand-light);
+  color: var(--color-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.rank-name {
+  flex: 1;
+  font-size: 14px;
+  color: var(--color-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rank-points {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-deep);
+  flex-shrink: 0;
+}
